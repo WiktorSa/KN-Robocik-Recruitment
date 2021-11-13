@@ -1,5 +1,5 @@
 import cv2
-import os
+from os.path import join
 import glob
 from typing import List
 from preprocessing.GateImage import GateImage
@@ -15,7 +15,7 @@ def load_data(directory: str) -> List[GateImage]:
 
     gate_images = []
 
-    for file in glob.glob(os.path.join(directory, '*.jpg')):
+    for file in glob.glob(join(directory, '*.jpg')):
         image = cv2.imread(file)
         image_height, image_width, _ = image.shape
         gate_info = read_gate_info(file.replace('jpg', 'txt'), image_width, image_height)
