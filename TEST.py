@@ -1,10 +1,15 @@
 from preprocessing.GateImage import GateImage
+from preprocessing.LoadData import load_data
 import cv2
 import numpy as np
 
 if __name__ == '__main__':
-    image = np.array(cv2.imread('data/1.jpg'))
-    with open('data/1.txt') as f:
+    test = load_data('data')
+    test[1].show_gate()
+    # image = np.array(cv2.imread('data/1.jpg'))
+
+
+    """with open('data/1.txt') as f:
         data = f.readline().split()
         data = list(map(float, data))
 
@@ -17,6 +22,6 @@ if __name__ == '__main__':
 
     test = GateImage(image, image_width, image_height, data[1], data[2], data[3], data[4])
     test2 = test.flip_image()
-    test2.show_gate()
+    test2.show_gate()"""
 
 

@@ -61,7 +61,7 @@ class GateImage:
         4. It will print the location of the gate (see __get_gate_location())
         """
 
-        image = cv2.circle(copy.deepcopy(self.image), self.gate_center, 15, (0, 0, 255), -1)
+        image = cv2.circle(copy.deepcopy(self.image), self.gate_center, 10, (0, 0, 255), -1)
         if self.gate_location == "Gate is fully visible":
             image = cv2.rectangle(image, self.top_left_corner, self.bottom_right_corner, (0, 0, 255), 2)
 
@@ -82,7 +82,7 @@ class GateImage:
         """
         Flip image across it's x-axis
 
-        :return: GateImage object where gate is flipped compared to the original GateImage
+        :return: GateImage object where image is flipped compared to the original image
         """
 
         new_image = cv2.flip(copy.deepcopy(self.image), 1)
