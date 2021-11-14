@@ -43,15 +43,15 @@ class GateImage:
         """
 
         if self.bottom_right_corner[0] > self.image_width:
-            return GateEnum['right'].value
+            return GateEnum['right']
         elif self.top_left_corner[0] < 0:
-            return GateEnum['left'].value
+            return GateEnum['left']
         elif self.bottom_right_corner[1] > self.image_height:
-            return GateEnum['down'].value
+            return GateEnum['down']
         elif self.top_left_corner[1] < 0:
-            return GateEnum['up'].value
+            return GateEnum['up']
         else:
-            return GateEnum['fully_visible'].value
+            return GateEnum['fully_visible']
 
     def show_gate(self) -> None:
         """
@@ -64,11 +64,11 @@ class GateImage:
         """
 
         image = cv2.circle(copy.deepcopy(self.image), self.gate_center, 10, (0, 0, 255), -1)
-        if self.gate_location == GateEnum['fully_visible'].value:
+        if self.gate_location == GateEnum['fully_visible']:
             image = cv2.rectangle(image, self.top_left_corner, self.bottom_right_corner, (0, 0, 255), 2)
 
         # We want to have the descryption centered around x-axis
-        text = "Gate location: " + GateEnum(self.gate_location).name
+        text = "Gate location: " + self.gate_location.name
         font = cv2.FONT_HERSHEY_SIMPLEX
         font_scale = 1
         thickness = 2
@@ -94,15 +94,14 @@ class GateImage:
         return GateImage(new_image, self.image_width, self.image_height, new_center_x, self.center_y, self.width,
                          self.height)
 
-    # TO DO
-    # THIS SHOULD RETURN ALL VARIABLES NEEDED FOR TRAINING
     def get_image_data(self) -> Tuple[np.ndarray, int, np.ndarray]:
         """
         Return data about image needed later for training the models
 
         :return: tuple containing image, gate location and gate coordinates
         """
+
         gate_coordinates = np.array([self.top_left_corner[0], self.top_left_corner[1], self.bottom_right_corner[0],
                             self.bottom_right_corner[1]])
 
-        return self.image, self.gate_location, gate_coordinates
+        return self.image.transpose((2, 0, 1)), self.gate_location.value, gate_coordinates
