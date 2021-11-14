@@ -63,9 +63,6 @@ class GateImage:
         4. It will print the location of the gate (see __get_gate_location())
         """
 
-        self.reshape(800, 500)
-        print(self.gate_center)
-
         image = cv2.circle(copy.deepcopy(self.image), self.gate_center, 10, (0, 0, 255), -1)
         if self.gate_location == GateEnum['fully_visible']:
             image = cv2.rectangle(image, self.top_left_corner, self.bottom_right_corner, (0, 0, 255), 2)
@@ -106,11 +103,8 @@ class GateImage:
         :param image_height: new height of a image
         """
 
-        proportion_x = image_width / self.width
-        propotion_y = image_height / self.height
-
-        print(proportion_x)
-
+        proportion_x = image_width / self.image_width
+        propotion_y = image_height / self.image_height
 
         self.image = cv2.resize(self.image, (image_width, image_height))
         self.image_width = image_width

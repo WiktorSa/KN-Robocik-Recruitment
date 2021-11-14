@@ -74,13 +74,9 @@ def get_model_input(gate_images: List[GateImage]) -> Tuple[np.ndarray, np.ndarra
     NEW_WIDTH = 200
     NEW_HEIGHT = 125
 
-    gate_images[0].show_gate()
-
-    # Reshape all images so that the input to the model will be slower
+    # Reshape all images so that the input to the model will be smaller
     for gate_image in gate_images:
         gate_image.reshape(NEW_WIDTH, NEW_HEIGHT)
-
-    copy.deepcopy(gate_images[0]).show_gate()
 
     no_images = len(gate_images)
     # There are 3 color channels
