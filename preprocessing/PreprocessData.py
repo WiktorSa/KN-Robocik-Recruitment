@@ -42,7 +42,7 @@ def preprocess_data(directory: str, train_size: float, val_size: float, use_flip
 
     all_train_gate_images = list(itertools.chain(train_gate_images, flipped_gate_images))
 
-    train_images, train_gate_location, train_gate_coordinates = None, None, None
-
-    print(len(train_gate_images))
-    print(len(all_train_gate_images))
+    train_images, train_gate_location, train_gate_coordinates = all_train_gate_images[0].get_image_data()
+    print(train_images)
+    print(train_gate_location)
+    print(train_gate_coordinates)

@@ -1,6 +1,8 @@
 import numpy as np
 import copy
 import cv2
+from typing import Tuple
+from utils.GateEnum import GateEnum
 
 
 class GateImage:
@@ -33,23 +35,23 @@ class GateImage:
         self.bottom_right_corner = (int(center_x + width / 2), int(center_y + height / 2))
         self.gate_location = self.__get_gate_location()
 
-    def __get_gate_location(self) -> str:
+    def __get_gate_location(self) -> int:
         """
-        Get gate location from it's coordinates
+        Get gate location from it's coordinates as a code (from GateEnum)
 
-        :return: One of five gate locations (fully visible, up, right, down, left)
+        :return: A code representing the gate location
         """
 
         if self.bottom_right_corner[0] > self.image_width:
-            return "Gate is located to the right"
+            return GateEnum['right'].value
         elif self.top_left_corner[0] < 0:
-            return "Gate is located to the left"
+            return GateEnum['left'].value
         elif self.bottom_right_corner[1] > self.image_height:
-            return "Gate is located to the down"
+            return GateEnum['down'].value
         elif self.top_left_corner[1] < 0:
-            return "Gate is located to the up"
+            return GateEnum['up'].value
         else:
-            return "Gate is fully visible"
+            return GateEnum['fully_visible'].value
 
     def show_gate(self) -> None:
         """
@@ -62,18 +64,19 @@ class GateImage:
         """
 
         image = cv2.circle(copy.deepcopy(self.image), self.gate_center, 10, (0, 0, 255), -1)
-        if self.gate_location == "Gate is fully visible":
+        if self.gate_location == GateEnum['fully_visible'].value:
             image = cv2.rectangle(image, self.top_left_corner, self.bottom_right_corner, (0, 0, 255), 2)
 
         # We want to have the descryption centered around x-axis
+        text = "Gate location: " + GateEnum(self.gate_location).name
         font = cv2.FONT_HERSHEY_SIMPLEX
         font_scale = 1
         thickness = 2
 
-        textsize = cv2.getTextSize(self.gate_location, font, font_scale, thickness)[0]
+        textsize = cv2.getTextSize(text, font, font_scale, thickness)[0]
         location_text = ((self.image_width - textsize[0]) // 2, self.image_height - 30)
 
-        image = cv2.putText(image, self.gate_location, location_text, font, font_scale, (255, 255, 255), thickness)
+        image = cv2.putText(image, text, location_text, font, font_scale, (255, 255, 255), thickness)
 
         cv2.imshow("Gate Image", image)
         cv2.waitKey(0)
@@ -93,5 +96,13 @@ class GateImage:
 
     # TO DO
     # THIS SHOULD RETURN ALL VARIABLES NEEDED FOR TRAINING
-    def get_info_image(self):
-        return None
+    def get_image_data(self) -> Tuple[np.ndarray, int, np.ndarray]:
+        """
+        Return data about image needed later for training the models
+
+        :return: tuple containing image, gate location and gate coordinates
+        """
+        gate_coordinates = np.array([self.top_left_corner[0], self.top_left_corner[1], self.bottom_right_corner[0],
+                            self.bottom_right_corner[1]])
+
+        return self.image, self.gate_location, gate_coordinates
