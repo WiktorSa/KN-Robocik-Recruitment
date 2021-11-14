@@ -63,6 +63,9 @@ class GateImage:
         4. It will print the location of the gate (see __get_gate_location())
         """
 
+        self.reshape(800, 500)
+        print(self.gate_center)
+
         image = cv2.circle(copy.deepcopy(self.image), self.gate_center, 10, (0, 0, 255), -1)
         if self.gate_location == GateEnum['fully_visible']:
             image = cv2.rectangle(image, self.top_left_corner, self.bottom_right_corner, (0, 0, 255), 2)
@@ -74,7 +77,7 @@ class GateImage:
         thickness = 2
 
         textsize = cv2.getTextSize(text, font, font_scale, thickness)[0]
-        location_text = ((self.image_width - textsize[0]) // 2, self.image_height - 30)
+        location_text = ((self.image_width - textsize[0]) // 2, self.image_height - 20)
 
         image = cv2.putText(image, text, location_text, font, font_scale, (255, 255, 255), thickness)
 
@@ -94,6 +97,32 @@ class GateImage:
         return GateImage(new_image, self.image_width, self.image_height, new_center_x, self.center_y, self.width,
                          self.height)
 
+    # This function is necessary. Otherwise the input for our model will be too large
+    def reshape(self, image_width, image_height) -> None:
+        """
+        Reshape image and change all data so that it matches to the new image
+
+        :param image_width: new width of a image
+        :param image_height: new height of a image
+        """
+
+        proportion_x = image_width / self.width
+        propotion_y = image_height / self.height
+
+        print(proportion_x)
+
+
+        self.image = cv2.resize(self.image, (image_width, image_height))
+        self.image_width = image_width
+        self.image_height = image_height
+        self.center_x = int(self.center_x * proportion_x)
+        self.center_y = int(self.center_y * propotion_y)
+        self.width = int(self.width * proportion_x)
+        self.height = int(self.height * propotion_y)
+        self.gate_center = (self.center_x, self.center_y)
+        self.top_left_corner = (int(self.center_x - self.width / 2), int(self.center_y - self.height / 2))
+        self.bottom_right_corner = (int(self.center_x + self.width / 2), int(self.center_y + self.height / 2))
+
     def get_image_data(self) -> Tuple[np.ndarray, int, np.ndarray]:
         """
         Return data about image needed later for training the models
@@ -102,6 +131,6 @@ class GateImage:
         """
 
         gate_coordinates = np.array([self.top_left_corner[0], self.top_left_corner[1], self.bottom_right_corner[0],
-                            self.bottom_right_corner[1]])
+                                     self.bottom_right_corner[1]])
 
         return self.image.transpose((2, 0, 1)), self.gate_location.value, gate_coordinates

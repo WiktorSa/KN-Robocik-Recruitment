@@ -1,3 +1,5 @@
+import copy
+
 import numpy as np
 import itertools
 from os import mkdir
@@ -63,15 +65,27 @@ def preprocess_data(directory: str, train_size: float, val_size: float, use_flip
 def get_model_input(gate_images: List[GateImage]) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
     Get data from GateImage objects that will later be used for training the models
+    Warning - images will be reshape to shape 200 x 125 so that they could form an input to the model
     
     :param gate_images: list of GateImage objects
     :return: Three numpy arrays containing: images, gate locations and gate coordinates
     """
 
-    no_images = len(gate_images)
-    image_height, image_width, no_color_channels = gate_images[0].image.shape
+    NEW_WIDTH = 200
+    NEW_HEIGHT = 125
 
-    images = np.empty(shape=(no_images, no_color_channels, image_height, image_width), dtype=np.int)
+    gate_images[0].show_gate()
+
+    # Reshape all images so that the input to the model will be slower
+    for gate_image in gate_images:
+        gate_image.reshape(NEW_WIDTH, NEW_HEIGHT)
+
+    copy.deepcopy(gate_images[0]).show_gate()
+
+    no_images = len(gate_images)
+    # There are 3 color channels
+    # And there are 4 coordinates to predict
+    images = np.empty(shape=(no_images, 3, NEW_HEIGHT, NEW_WIDTH), dtype=np.int)
     gate_locations = np.empty(shape=no_images, dtype=np.int)
     gate_coordinates = np.empty(shape=(no_images, 4), dtype=np.int)
 
