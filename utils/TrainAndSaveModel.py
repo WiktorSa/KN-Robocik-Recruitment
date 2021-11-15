@@ -14,6 +14,7 @@ from utils.Test import test_regression, test_classification
 def set_seed(seed: int):
     """
     Set a seed for torch dependencies so that the output is always the same
+
     :param seed: seed
     """
 
@@ -28,6 +29,7 @@ def train_and_save_model(is_classification_task: bool, directory: str, batch_siz
                          save_directory: str, seed: int) -> None:
     """
     Train the model on given images. When training ends save the model weights in a given directory
+
     :param is_classification_task: are we performing classification task.
     If True train classification model. Else train regression model
     :param directory: directory where preprocessed data is stored
