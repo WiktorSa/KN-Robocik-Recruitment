@@ -7,8 +7,8 @@ from dataloader import get_data_loader
 from model import GateClassificationModel, GateRegressionModel
 from utils.GateEnum import GateEnum
 from utils.EarlyStopping import EarlyStopping
+from utils.Train import train_regression, train_classification
 
-# from utils.Train import train
 # from utils.Test import test
 
 
@@ -67,20 +67,20 @@ def train_and_save_model(is_classification_task: bool, directory: str, batch_siz
         criterion = nn.MSELoss()
 
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
-    early_stopping = EarlyStopping(save_directory)
+    early_stopping = EarlyStopping(save_directory, is_classification_task)
 
     # Create directory if it doesn't exist
     if not isdir(save_directory):
         mkdir(save_directory)
 
-    for x, y in train_dataloader:
-        print(x)
-        print(y)
-        break
+    if is_classification_task:
+        train_classification(model, train_dataloader, val_dataloader, criterion, optimizer, DEVICE, no_epochs,
+                         early_stopping)
 
+    else:
+        train_regression(model, train_dataloader, val_dataloader, criterion, optimizer, DEVICE, no_epochs,
+                         early_stopping)
     """
-
-    train(model, train_dataloader, val_dataloader, criterion, optimizer, DEVICE, no_epochs, early_stopping)
     test(model, test_dataloader, criterion, DEVICE)
     
     """
