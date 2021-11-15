@@ -15,8 +15,8 @@ def get_data_loader(images: np.ndarray, gate_locations: np.ndarray, gate_coordin
     :param gate_locations: codes representing the location of the gate
     :param gate_coordinates: the coordinates of the gate
     :param batch_size: batch size
-    :param is_classification_task: are we creating dataloader for classification task.
-    If True return DataLoader for classification task, else return DataLoader for regression task
+    :param is_classification_task: are we performing classification task.
+    If True create DataLoader for classification task, else create DataLoader for regression task
     :return: DataLoader appriopriate for a given task
     """
 

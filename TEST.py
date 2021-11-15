@@ -1,9 +1,9 @@
-from utils import TrainAndSaveModel
+from utils import train_and_save_model
 
 
 if __name__ == '__main__':
-    #TrainAndSaveModel(True, )
-    train_data = np.load('preprocessed_data/train_data.npz')
+    train_and_save_model(True, 'preprocessed_data', 32, 1e-3, 1, 'model_weights', 1001)
+    """train_data = np.load('preprocessed_data/train_data.npz')
     train_dataloader = get_data_loader(train_data['images'], train_data['gate_locations'],
                                        train_data['gate_coordinates'], 32, True)
 
@@ -13,5 +13,4 @@ if __name__ == '__main__':
     for x, y in train_dataloader:
         output = model.forward(x.float())
         loss = criterion(output, y.long())
-        print(loss)
-    print(sum(p.numel() for p in model.parameters()))
+        print(loss)"""
