@@ -6,7 +6,7 @@ from model.Blocks import ConvolutionBlock, LinearBlock
 class GateRegressionModel(nn.Module):
     def __init__(self, in_channels: int, out_features: int):
         """
-        Create a model based on convolutions which will predict the coordinates of the gate
+        Create a model based on convolutions which will predict the location of the gate (coordinates)
 
         :param in_channels: number of color channels in images
         :param out_features: number of coordinates to predict

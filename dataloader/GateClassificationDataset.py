@@ -7,6 +7,7 @@ class GateClassificationDataset(Dataset):
     def __init__(self, images: np.ndarray, gate_locations: np.ndarray):
         """
         Create a gate location dataset that will be later used for classification
+
         :param images: images that contain gates saved as numpy arrays
         :param gate_locations: codes representing the location of gates
         """

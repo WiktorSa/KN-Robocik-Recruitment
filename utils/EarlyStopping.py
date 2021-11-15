@@ -7,6 +7,7 @@ class EarlyStopping:
     def __init__(self, directory: str, is_classification_task: bool, patience: int = 7):
         """
         Implement a basic early stopping algorithm to improve learning process
+
         :param directory: directory where model weights should be saved
         :param is_classification_task: are we performing classification task.
         :param patience: how long to wait after last validation loss decrease
@@ -19,7 +20,6 @@ class EarlyStopping:
 
         if is_classification_task:
             self.file_name = "model_weights_classification.pth"
-
         else:
             self.file_name = "model_weights_regression.pth"
 

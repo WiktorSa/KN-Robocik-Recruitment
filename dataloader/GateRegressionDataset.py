@@ -7,6 +7,7 @@ class GateRegressionDataset(Dataset):
     def __init__(self, images: np.ndarray, gate_coordinates: np.ndarray):
         """
         Create a gate location dataset that will be later used for regression
+
         :param images: images that contain gates saved as numpy arrays
         :param gate_coordinates: coordinates representing the location of the gate
         (top_left_corner and bottom_right_corner)

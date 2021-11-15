@@ -31,7 +31,7 @@ def train_and_save_model(is_classification_task: bool, directory: str, batch_siz
     Train the model on given images. When training ends save the model weights in a given directory
 
     :param is_classification_task: are we performing classification task.
-    If True train classification model. Else train regression model
+    If True train classification model, else train regression model
     :param directory: directory where preprocessed data is stored
     :param batch_size: batch size
     :param lr: learning rate for optimizer
