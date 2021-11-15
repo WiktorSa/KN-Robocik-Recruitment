@@ -8,8 +8,7 @@ from model import GateClassificationModel, GateRegressionModel
 from utils.GateEnum import GateEnum
 from utils.EarlyStopping import EarlyStopping
 from utils.Train import train_regression, train_classification
-
-# from utils.Test import test
+from utils.Test import test_regression, test_classification
 
 
 def set_seed(seed: int):
@@ -76,11 +75,9 @@ def train_and_save_model(is_classification_task: bool, directory: str, batch_siz
     if is_classification_task:
         train_classification(model, train_dataloader, val_dataloader, criterion, optimizer, DEVICE, no_epochs,
                          early_stopping)
+        test_classification(model, test_dataloader, criterion, DEVICE)
 
     else:
         train_regression(model, train_dataloader, val_dataloader, criterion, optimizer, DEVICE, no_epochs,
                          early_stopping)
-    """
-    test(model, test_dataloader, criterion, DEVICE)
-    
-    """
+        test_regression(model, test_dataloader, criterion, DEVICE)

@@ -1,3 +1,0 @@
-detected, centex_x, center_y, width, height
-Before drawing this values using cv2.rectangle please read the documentation for this function first.
-You need to process them before plugging them into this function.
