@@ -20,12 +20,5 @@ def create_parser():
 if __name__ == '__main__':
     data_parser = create_parser()
     args = data_parser.parse_args()
-
-    if args.task == 'classification':
-        train_and_save_model(True, args.dir, args.bs, args.lr, args.ep, args.save_dir, args.seed)
-
-    elif args.task == 'regression':
-        train_and_save_model(False, args.dir, args.bs, args.lr, args.ep, args.save_dir, args.seed)
-
-    else:
-        data_parser.error("Not recognized task. Type classification or regression")
+    is_classification_task = args.task == 'classification'
+    train_and_save_model(is_classification_task, args.dir, args.bs, args.lr, args.ep, args.save_dir, args.seed)
