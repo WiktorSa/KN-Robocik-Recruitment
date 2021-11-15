@@ -1,11 +1,12 @@
 import torch
 from tqdm import tqdm
+from EarlyStopping import EarlyStopping
 from torch.utils.tensorboard import SummaryWriter
 
 
 # FINISH implementing classification
 def train(model, train_dataloader, val_dataloader, criterion, optimizer, device: str, no_epochs: int,
-          early_stopping, is_classification_task: bool) -> None:
+          early_stopping: EarlyStopping, is_classification_task: bool) -> None:
     """
     Train a model and validate it's performance
     :param model: model to train on

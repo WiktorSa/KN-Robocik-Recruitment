@@ -67,11 +67,16 @@ def train_and_save_model(is_classification_task: bool, directory: str, batch_siz
         criterion = nn.MSELoss()
 
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
-    early_stopping = EarlyStopping(save_model)
+    early_stopping = EarlyStopping(save_directory)
 
     # Create directory if it doesn't exist
-    if not isdir(save_model):
-        mkdir(save_model)
+    if not isdir(save_directory):
+        mkdir(save_directory)
+
+    for x, y in train_dataloader:
+        print(x)
+        print(y)
+        break
 
     """
 

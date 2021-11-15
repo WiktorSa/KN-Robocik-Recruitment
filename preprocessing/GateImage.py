@@ -1,7 +1,7 @@
 import numpy as np
 import copy
 import cv2
-from typing import Tuple
+from typing import Tuple, List
 from utils.GateEnum import GateEnum
 
 
@@ -117,14 +117,14 @@ class GateImage:
         self.top_left_corner = (int(self.center_x - self.width / 2), int(self.center_y - self.height / 2))
         self.bottom_right_corner = (int(self.center_x + self.width / 2), int(self.center_y + self.height / 2))
 
-    def get_image_data(self) -> Tuple[np.ndarray, int, np.ndarray]:
+    def get_image_data(self) -> Tuple[np.ndarray, int, List[int]]:
         """
         Return data about image needed later for training the models
 
         :return: tuple containing image, gate location and gate coordinates
         """
 
-        gate_coordinates = np.array([self.top_left_corner[0], self.top_left_corner[1], self.bottom_right_corner[0],
-                                     self.bottom_right_corner[1]])
+        gate_coordinates = [self.top_left_corner[0], self.top_left_corner[1], self.bottom_right_corner[0],
+                            self.bottom_right_corner[1]]
 
         return self.image.transpose((2, 0, 1)), self.gate_location.value, gate_coordinates
