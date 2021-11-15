@@ -20,5 +20,4 @@ def create_parser():
 if __name__ == '__main__':
     data_parser = create_parser()
     args = data_parser.parse_args()
-    is_classification_task = args.task == 'classification'
-    train_and_save_model(is_classification_task, args.dir, args.bs, args.lr, args.ep, args.save_dir, args.seed)
+    train_and_save_model(args.task == 'classification', args.dir, args.bs, args.lr, args.ep, args.save_dir, args.seed)
