@@ -17,12 +17,11 @@ class GateRegressionModel(nn.Module):
             ConvolutionBlock(in_channels, 16),
             ConvolutionBlock(16, 32),
             nn.Flatten(),
-            LinearBlock(8736, 4096),
-            LinearBlock(4096, 1024),
-            LinearBlock(1024, 256),
-            LinearBlock(256, 64),
-            LinearBlock(64, 16),
-            LinearBlock(16, out_features)
+            LinearBlock(8736, 2048),
+            LinearBlock(2048, 512),
+            LinearBlock(512, 128),
+            LinearBlock(128, 32),
+            LinearBlock(32, out_features)
         )
 
     def forward(self, x):
