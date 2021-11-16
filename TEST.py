@@ -1,5 +1,4 @@
-from model import GateClassificationModel, GateRegressionModel
+from visualisation import visualise_results
 
 if __name__ == '__main__':
-    model = GateRegressionModel(3, 4)
-    print(sum(p.numel() for p in model.parameters()))
+    visualise_results('preprocessed_data', 'model_weights', 1001)

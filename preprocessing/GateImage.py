@@ -53,6 +53,42 @@ class GateImage:
         else:
             return GateEnum['fully_visible']
 
+    # This function is necessary. Otherwise the input for our model will be too large
+    def reshape(self, image_width, image_height) -> None:
+        """
+        Reshape image and change all data so that it matches to the new image
+
+        :param image_width: new width of a image
+        :param image_height: new height of a image
+        """
+
+        proportion_x = image_width / self.image_width
+        propotion_y = image_height / self.image_height
+
+        self.image = cv2.resize(self.image, (image_width, image_height), interpolation=cv2.INTER_AREA)
+        self.image_width = image_width
+        self.image_height = image_height
+        self.center_x = int(self.center_x * proportion_x)
+        self.center_y = int(self.center_y * propotion_y)
+        self.width = int(self.width * proportion_x)
+        self.height = int(self.height * propotion_y)
+        self.gate_center = (self.center_x, self.center_y)
+        self.top_left_corner = (int(self.center_x - self.width / 2), int(self.center_y - self.height / 2))
+        self.bottom_right_corner = (int(self.center_x + self.width / 2), int(self.center_y + self.height / 2))
+
+    def flip_image(self) -> 'GateImage':
+        """
+        Flip image across it's x-axis
+
+        :return: GateImage object where image is flipped compared to the original image
+        """
+
+        new_image = cv2.flip(copy.deepcopy(self.image), 1)
+        new_center_x = self.image_width - self.center_x
+
+        return GateImage(new_image, self.image_width, self.image_height, new_center_x, self.center_y, self.width,
+                         self.height)
+
     def show_gate(self) -> None:
         """
         Function used primarily for testing.
@@ -80,42 +116,7 @@ class GateImage:
 
         cv2.imshow("Gate Image", image)
         cv2.waitKey(0)
-
-    def flip_image(self) -> 'GateImage':
-        """
-        Flip image across it's x-axis
-
-        :return: GateImage object where image is flipped compared to the original image
-        """
-
-        new_image = cv2.flip(copy.deepcopy(self.image), 1)
-        new_center_x = self.image_width - self.center_x
-
-        return GateImage(new_image, self.image_width, self.image_height, new_center_x, self.center_y, self.width,
-                         self.height)
-
-    # This function is necessary. Otherwise the input for our model will be too large
-    def reshape(self, image_width, image_height) -> None:
-        """
-        Reshape image and change all data so that it matches to the new image
-
-        :param image_width: new width of a image
-        :param image_height: new height of a image
-        """
-
-        proportion_x = image_width / self.image_width
-        propotion_y = image_height / self.image_height
-
-        self.image = cv2.resize(self.image, (image_width, image_height))
-        self.image_width = image_width
-        self.image_height = image_height
-        self.center_x = int(self.center_x * proportion_x)
-        self.center_y = int(self.center_y * propotion_y)
-        self.width = int(self.width * proportion_x)
-        self.height = int(self.height * propotion_y)
-        self.gate_center = (self.center_x, self.center_y)
-        self.top_left_corner = (int(self.center_x - self.width / 2), int(self.center_y - self.height / 2))
-        self.bottom_right_corner = (int(self.center_x + self.width / 2), int(self.center_y + self.height / 2))
+        cv2.destroyAllWindows()
 
     def get_image_data(self) -> Tuple[np.ndarray, int, List[int]]:
         """
