@@ -91,7 +91,7 @@ class GateImage:
         return GateImage(new_image, self.image_width, self.image_height, new_center_x, self.center_y, self.width,
                          self.height)
 
-    def color_jitter_image(self, brightness: int = 0, contrast: int = 0, saturation: int = 0,
+    def color_jitter_image(self, brightness: float = 0, contrast: float = 0, saturation: float = 0,
                            hue: float = 0) -> 'GateImage':
         """
         Perform color jittering based on a given parameters and torchvision.transforms.ColorJitter function
@@ -112,6 +112,38 @@ class GateImage:
 
         return GateImage(transformed_image, self.image_width, self.image_height, self.center_x, self.center_y,
                          self.width, self.height)
+
+    def center_crop(self, x_left_offset: int, x_right_offset: int, y_down_offset: int, y_up_offset: int) -> 'GateImage':
+        """
+        Crop the image but base it on the center of the image
+
+        :param x_left_offset: x offset from the left side
+        :param x_right_offset: x offset from the right side
+        :param y_down_offset: y offset from the down
+        :param y_up_offset: y offset from the up
+        :return: GateImage object which is center cropped
+        """
+
+        center_x, center_y = self.gate_center
+
+        # For safety reasons
+        if x_left_offset > center_x:
+            x_left_offset = 0
+        if self.image_width - x_right_offset < center_x:
+            x_right_offset = 0
+        if y_down_offset > center_y:
+            y_down_offset = 0
+        if self.image_height - y_up_offset < center_y:
+            y_up_offset = 0
+
+        new_image = self.image[y_down_offset:self.image_height - y_up_offset,
+                    x_left_offset:self.image_width - x_right_offset]
+
+        new_height, new_width, _ = new_image.shape
+        new_center_x = center_x - x_left_offset
+        new_center_y = center_y - y_down_offset
+
+        return GateImage(new_image, new_width, new_height, new_center_x, new_center_y, self.width, self.height)
 
     def show_gate(self) -> None:
         """

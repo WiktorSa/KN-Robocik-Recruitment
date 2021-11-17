@@ -1,5 +1,4 @@
 import copy
-
 import numpy as np
 import itertools
 from os import mkdir
@@ -7,6 +6,8 @@ from os.path import join, isdir
 from typing import Tuple, List
 from preprocessing.LoadData import load_data
 from preprocessing.GateImage import GateImage
+from preprocessing.DataAugmentation import perform_flip_augmentation, perform_center_crop_augmentation, \
+    perform_color_jitter_augmentation
 
 
 def preprocess_data(directory: str, train_size: float, val_size: float, use_augmentation: bool,
@@ -42,27 +43,9 @@ def preprocess_data(directory: str, train_size: float, val_size: float, use_augm
 
     # Use augmentation techniques to increase the number of training data
     if use_augmentation:
-        flipped_gate_images = [gate_image.flip_image() for gate_image in train_gate_images]
-        jitter_gate_images = [gate_image.color_jitter_image(*rng.uniform(high=[1, 1.25, 1.25, 0.1]))
-                              for gate_image in train_gate_images]
-        flipped_jitter_gate_images = [gate_image.color_jitter_image(*rng.uniform(high=[1, 1.25, 1.25, 0.1]))
-                                      for gate_image in flipped_gate_images]
-
-        flipped_gate_images[0].show_gate()
-        flipped_jitter_gate_images[0].show_gate()
-        flipped_gate_images[1].show_gate()
-        flipped_jitter_gate_images[1].show_gate()
-        """
-        flipped_gate_images[2].show_gate()
-        flipped_jitter_gate_images[2].show_gate()
-        flipped_gate_images[3].show_gate()
-        flipped_jitter_gate_images[3].show_gate()
-        flipped_gate_images[4].show_gate()
-        flipped_jitter_gate_images[4].show_gate()
-        """
-
-        train_gate_images = list(itertools.chain(train_gate_images, flipped_gate_images, jitter_gate_images,
-                                                 flipped_jitter_gate_images))
+        train_gate_images.extend(perform_flip_augmentation(train_gate_images))
+        train_gate_images.extend(perform_center_crop_augmentation(train_gate_images))
+        train_gate_images.extend(perform_color_jitter_augmentation(train_gate_images))
 
         # Shuffle all images created by data augmentation
         rng.shuffle(train_gate_images)
