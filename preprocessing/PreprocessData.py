@@ -40,10 +40,32 @@ def preprocess_data(directory: str, train_size: float, val_size: float, use_augm
     val_gate_images = gate_images[train_index:val_index]
     test_gate_images = gate_images[val_index:]
 
+    # Use augmentation techniques to increase the number of training data
     if use_augmentation:
         flipped_gate_images = [gate_image.flip_image() for gate_image in train_gate_images]
+        jitter_gate_images = [gate_image.color_jitter_image(*rng.uniform(high=[1, 1.25, 1.25, 0.1]))
+                              for gate_image in train_gate_images]
+        flipped_jitter_gate_images = [gate_image.color_jitter_image(*rng.uniform(high=[1, 1.25, 1.25, 0.1]))
+                                      for gate_image in flipped_gate_images]
 
-        train_gate_images = list(itertools.chain(train_gate_images, flipped_gate_images))
+        flipped_gate_images[0].show_gate()
+        flipped_jitter_gate_images[0].show_gate()
+        flipped_gate_images[1].show_gate()
+        flipped_jitter_gate_images[1].show_gate()
+        """
+        flipped_gate_images[2].show_gate()
+        flipped_jitter_gate_images[2].show_gate()
+        flipped_gate_images[3].show_gate()
+        flipped_jitter_gate_images[3].show_gate()
+        flipped_gate_images[4].show_gate()
+        flipped_jitter_gate_images[4].show_gate()
+        """
+
+        train_gate_images = list(itertools.chain(train_gate_images, flipped_gate_images, jitter_gate_images,
+                                                 flipped_jitter_gate_images))
+
+        # Shuffle all images created by data augmentation
+        rng.shuffle(train_gate_images)
 
     train_images, train_gate_locations, train_gate_coordinates = get_model_input(train_gate_images)
     val_images, val_gate_locations, val_gate_coordinates = get_model_input(val_gate_images)

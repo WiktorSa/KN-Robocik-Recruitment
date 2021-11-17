@@ -1,6 +1,8 @@
 import numpy as np
 import copy
 import cv2
+from PIL import Image
+from torchvision.transforms import ColorJitter
 from typing import Tuple, List
 from utils.GateEnum import GateEnum
 
@@ -88,6 +90,28 @@ class GateImage:
 
         return GateImage(new_image, self.image_width, self.image_height, new_center_x, self.center_y, self.width,
                          self.height)
+
+    def color_jitter_image(self, brightness: int = 0, contrast: int = 0, saturation: int = 0,
+                           hue: float = 0) -> 'GateImage':
+        """
+        Perform color jittering based on a given parameters and torchvision.transforms.ColorJitter function
+
+        :param brightness: how much to jitter brightness
+        :param contrast how much to jitter contrast
+        :param saturation: how much to jitter saturation
+        :param hue: how much to jitter hue
+        :return: GateImage object with image on which color jittering was performed
+        """
+
+        # ColorJitter only accepts PIL images so we need to convert to PIL image and later convert back to numpy array
+        transformer = ColorJitter(brightness, contrast, saturation, hue)
+
+        transformed_image = Image.fromarray(self.image)
+        transformed_image = transformer(transformed_image)
+        transformed_image = np.asarray(transformed_image)
+
+        return GateImage(transformed_image, self.image_width, self.image_height, self.center_x, self.center_y,
+                         self.width, self.height)
 
     def show_gate(self) -> None:
         """

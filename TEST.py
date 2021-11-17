@@ -1,4 +1,5 @@
-from visualisation import visualise_results
+from preprocessing import preprocess_data
+import numpy as np
 
 if __name__ == '__main__':
-    visualise_results('preprocessed_data', 'model_weights', 800, 500, 1001)
+    preprocess_data('data', 0.7, 0.2, True, 'preprocessed_data', 1001)
