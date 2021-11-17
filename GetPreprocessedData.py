@@ -19,4 +19,4 @@ def create_parser():
 if __name__ == '__main__':
     data_parser = create_parser()
     args = data_parser.parse_args()
-    preprocess_data(args.dir, args.ts, args.vs, args.augmentation, args.save_dir, args.seed)
+    preprocess_data(args.dir, args.ts, args.vs, args.augmentate, args.save_dir, args.seed)
