@@ -9,7 +9,7 @@ from preprocessing.LoadData import load_data
 from preprocessing.GateImage import GateImage
 
 
-def preprocess_data(directory: str, train_size: float, val_size: float, use_flip_augmentation: bool,
+def preprocess_data(directory: str, train_size: float, val_size: float, use_augmentation: bool,
                     save_directory: str, seed: int) -> None:
     """
     Preprocess data and save it later in a given folder.
@@ -22,7 +22,7 @@ def preprocess_data(directory: str, train_size: float, val_size: float, use_flip
     :param directory: directory where images and data about gates are stored
     :param train_size: size of training data
     :param val_size: size of validation data
-    :param use_flip_augmentation: should flip be used as a data augmentation technique
+    :param use_augmentation: should we augmentate data
     :param save_directory: directory where preprocessed data should be saved
     :param seed: seed
     """
@@ -40,13 +40,12 @@ def preprocess_data(directory: str, train_size: float, val_size: float, use_flip
     val_gate_images = gate_images[train_index:val_index]
     test_gate_images = gate_images[val_index:]
 
-    flipped_gate_images = []
-    if use_flip_augmentation:
+    if use_augmentation:
         flipped_gate_images = [gate_image.flip_image() for gate_image in train_gate_images]
 
-    all_train_gate_images = list(itertools.chain(train_gate_images, flipped_gate_images))
+        train_gate_images = list(itertools.chain(train_gate_images, flipped_gate_images))
 
-    train_images, train_gate_locations, train_gate_coordinates = get_model_input(all_train_gate_images)
+    train_images, train_gate_locations, train_gate_coordinates = get_model_input(train_gate_images)
     val_images, val_gate_locations, val_gate_coordinates = get_model_input(val_gate_images)
     test_images, test_gate_locations, test_gate_coordinates = get_model_input(test_gate_images)
 
