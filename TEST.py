@@ -1,5 +1,5 @@
-from preprocessing import preprocess_data
-import numpy as np
+from model import GateRegressionModel, GateClassificationModel
 
 if __name__ == '__main__':
-    preprocess_data('data', 0.7, 0.2, True, 'preprocessed_data', 1001)
+    model = GateClassificationModel(3, 4)
+    print(sum(p.numel() for p in model.parameters() if p.requires_grad))

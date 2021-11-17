@@ -8,8 +8,8 @@ def create_parser():
                         choices=['classification', 'regression'], type=str, required=True)
     parser.add_argument('-dir', default='preprocessed_data', help='Directory with preprocessed data', type=str,
                         required=False)
-    parser.add_argument('-bs', default=16, help='Batch size', type=int, required=False)
-    parser.add_argument('-lr', default=1e-4, help='Learning rate', type=float, required=False)
+    parser.add_argument('-bs', default=32, help='Batch size', type=int, required=False)
+    parser.add_argument('-lr', default=1e-3, help='Learning rate', type=float, required=False)
     parser.add_argument('-ep', default=100, help='Number of epochs', type=int, required=False)
     parser.add_argument('-save_dir', default='model_weights', help='Directory where model weights should be saved',
                         type=str, required=False)

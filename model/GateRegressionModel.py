@@ -16,12 +16,16 @@ class GateRegressionModel(nn.Module):
         self.sequential = nn.Sequential(
             ConvolutionBlock(in_channels, 16),
             ConvolutionBlock(16, 32),
+            nn.MaxPool2d(3),
+            ConvolutionBlock(32, 32),
+            ConvolutionBlock(32, 32),
+            nn.MaxPool2d(3),
             nn.Flatten(),
-            LinearBlock(8736, 2048),
+            LinearBlock(7680, 2048),
             LinearBlock(2048, 512),
             LinearBlock(512, 128),
             LinearBlock(128, 32),
-            LinearBlock(32, out_features)
+            nn.Linear(32, out_features)
         )
 
     def forward(self, x):

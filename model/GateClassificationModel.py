@@ -16,8 +16,12 @@ class GateClassificationModel(nn.Module):
         self.sequential = nn.Sequential(
             ConvolutionBlock(in_channels, 8),
             ConvolutionBlock(8, 16),
+            nn.MaxPool2d(3),
+            ConvolutionBlock(16, 16),
+            ConvolutionBlock(16, 16),
+            nn.MaxPool2d(3),
             nn.Flatten(),
-            LinearBlock(4368, 1024),
+            LinearBlock(3840, 1024),
             LinearBlock(1024, 256),
             LinearBlock(256, 64),
             LinearBlock(64, 16),

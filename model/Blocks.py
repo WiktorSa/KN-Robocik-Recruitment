@@ -2,18 +2,16 @@ import torch.nn as nn
 
 
 class ConvolutionBlock(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int = 3, max_pool2d_kernel_size: int = 3):
+    def __init__(self, in_channels: int, out_channels: int, kernel_size: int = 3):
         """
         Create a convolution block consisting of:
         1. Conv2d layer
         2. BatchNorm2d layer
         3. ReLU activation function
-        4. MaxPool2d
 
         :param in_channels: number of channels in the input for convolution
         :param out_channels: number of channels produced by the convolution
         :param kernel_size: kernel size
-        :param max_pool2d_kernel_size: kernel_size for MaxPool2d
         :return: one convolution block
         """
 
@@ -22,7 +20,6 @@ class ConvolutionBlock(nn.Module):
             nn.Conv2d(in_channels, out_channels, (kernel_size, kernel_size)),
             nn.BatchNorm2d(out_channels),
             nn.ReLU(),
-            nn.MaxPool2d(max_pool2d_kernel_size)
         )
 
     def forward(self, x):
@@ -39,7 +36,7 @@ class LinearBlock(nn.Module):
 
         :param in_features: number of inputs
         :param out_features: number of outputs
-        :param dropout: value of dropout in dropout layer
+        :param dropout: value of dropout in dropout layer.
         """
 
         super(LinearBlock, self).__init__()
