@@ -13,6 +13,7 @@ class GateRegressionModel(nn.Module):
         """
 
         super(GateRegressionModel, self).__init__()
+        # Model needs to end with nn.Linear to avoid dropout
         self.sequential = nn.Sequential(
             ConvolutionBlock(in_channels, 16),
             ConvolutionBlock(16, 32),
@@ -21,11 +22,9 @@ class GateRegressionModel(nn.Module):
             ConvolutionBlock(32, 32),
             nn.MaxPool2d(3),
             nn.Flatten(),
-            LinearBlock(7680, 2048),
-            LinearBlock(2048, 512),
-            LinearBlock(512, 128),
-            LinearBlock(128, 32),
-            nn.Linear(32, out_features)
+            LinearBlock(7680, 1024),
+            LinearBlock(1024, 256),
+            nn.Linear(256, out_features)
         )
 
     def forward(self, x):

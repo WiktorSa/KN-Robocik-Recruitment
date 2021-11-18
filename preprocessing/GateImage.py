@@ -113,9 +113,9 @@ class GateImage:
         return GateImage(transformed_image, self.image_width, self.image_height, self.center_x, self.center_y,
                          self.width, self.height)
 
-    def center_crop(self, x_left_offset: int, x_right_offset: int, y_down_offset: int, y_up_offset: int) -> 'GateImage':
+    def crop(self, x_left_offset: int, x_right_offset: int, y_down_offset: int, y_up_offset: int) -> 'GateImage':
         """
-        Crop the image but base it on the center of the image
+        Crop the image
 
         :param x_left_offset: x offset from the left side
         :param x_right_offset: x offset from the right side

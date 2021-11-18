@@ -6,7 +6,7 @@ from os.path import join, isdir
 from typing import Tuple, List
 from preprocessing.LoadData import load_data
 from preprocessing.GateImage import GateImage
-from preprocessing.DataAugmentation import perform_flip_augmentation, perform_center_crop_augmentation, \
+from preprocessing.DataAugmentation import perform_flip_augmentation, perform_crop_augmentation, \
     perform_color_jitter_augmentation
 
 
@@ -44,7 +44,7 @@ def preprocess_data(directory: str, train_size: float, val_size: float, use_augm
     # Use augmentation techniques to increase the number of training data
     if use_augmentation:
         train_gate_images.extend(perform_flip_augmentation(train_gate_images))
-        train_gate_images.extend(perform_center_crop_augmentation(train_gate_images))
+        train_gate_images.extend(perform_crop_augmentation(train_gate_images))
         train_gate_images.extend(perform_color_jitter_augmentation(train_gate_images))
 
         # Shuffle all images created by data augmentation

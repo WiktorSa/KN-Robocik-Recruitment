@@ -21,7 +21,7 @@ def perform_flip_augmentation(gate_images: List[GateImage]) -> List[GateImage]:
     return flipped_gate_images
 
 
-def perform_center_crop_augmentation(gate_images: List[GateImage]) -> List[GateImage]:
+def perform_crop_augmentation(gate_images: List[GateImage]) -> List[GateImage]:
     """
     Perform center crop augmentation on some of the images
 
@@ -29,15 +29,15 @@ def perform_center_crop_augmentation(gate_images: List[GateImage]) -> List[GateI
     :return: list of center cropped GateImage objects
     """
 
-    CHANCE_FOR_CENTER_CROP_AUGMENTATION = 0.8
+    CHANCE_FOR_CROP_AUGMENTATION = 0.8
 
-    center_cropped_gate_images = []
+    cropped_gate_images = []
     for gate_image in gate_images:
-        if random.random() < CHANCE_FOR_CENTER_CROP_AUGMENTATION:
-            center_cropped_gate_images.append(gate_image.center_crop(random.randint(25, 175), random.randint(25, 175),
-                                                              random.randint(25, 100), random.randint(25, 100)))
+        if random.random() < CHANCE_FOR_CROP_AUGMENTATION:
+            cropped_gate_images.append(gate_image.crop(random.randint(25, 175), random.randint(25, 175),
+                                                       random.randint(25, 100), random.randint(25, 100)))
 
-    return center_cropped_gate_images
+    return cropped_gate_images
 
 
 def perform_color_jitter_augmentation(gate_images: List[GateImage]) -> List[GateImage]:

@@ -7,7 +7,7 @@ from dataloader.GateRegressionDataset import GateRegressionDataset
 
 
 def get_data_loader(images: np.ndarray, gate_locations: np.ndarray, gate_coordinates: np.ndarray, batch_size: int,
-                    is_classification_task: bool) -> DataLoader:
+                    is_classification_task: bool, shuffle: bool) -> DataLoader:
     """
     Create dataloader for a given problem
 
@@ -17,6 +17,7 @@ def get_data_loader(images: np.ndarray, gate_locations: np.ndarray, gate_coordin
     :param batch_size: batch size
     :param is_classification_task: are we performing classification task.
     If True create DataLoader for classification task, else create DataLoader for regression task
+    :param shuffle: should data be reshufled at every epoch
     :return: DataLoader appriopriate for a given task
     """
 
@@ -28,7 +29,7 @@ def get_data_loader(images: np.ndarray, gate_locations: np.ndarray, gate_coordin
                                                                                       gate_coordinates)
         dataset = GateRegressionDataset(images_fully_visible, gate_coordinates_fully_visible)
 
-    dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
+    dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=shuffle)
     return dataloader
 
 

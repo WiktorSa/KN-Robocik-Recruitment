@@ -53,11 +53,11 @@ def train_and_save_model(is_classification_task: bool, directory: str, batch_siz
     _, out_features_regression = train_data['gate_coordinates'].shape
 
     train_dataloader = get_data_loader(train_data['images'], train_data['gate_locations'],
-                                       train_data['gate_coordinates'], batch_size, is_classification_task)
+                                       train_data['gate_coordinates'], batch_size, is_classification_task, True)
     val_dataloader = get_data_loader(val_data['images'], val_data['gate_locations'],
-                                     val_data['gate_coordinates'], batch_size, is_classification_task)
+                                     val_data['gate_coordinates'], batch_size, is_classification_task, False)
     test_dataloader = get_data_loader(test_data['images'], test_data['gate_locations'],
-                                      test_data['gate_coordinates'], batch_size, is_classification_task)
+                                      test_data['gate_coordinates'], batch_size, is_classification_task, False)
 
     if is_classification_task:
         model = GateClassificationModel(in_channels, out_features_classification)

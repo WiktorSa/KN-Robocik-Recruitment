@@ -13,6 +13,7 @@ class GateClassificationModel(nn.Module):
         """
 
         super(GateClassificationModel, self).__init__()
+        # Model needs to end with nn.Linear to avoid dropout
         self.sequential = nn.Sequential(
             ConvolutionBlock(in_channels, 8),
             ConvolutionBlock(8, 16),
@@ -22,10 +23,9 @@ class GateClassificationModel(nn.Module):
             nn.MaxPool2d(3),
             nn.Flatten(),
             LinearBlock(3840, 1024),
+            LinearBlock(1024, 1024),
             LinearBlock(1024, 256),
-            LinearBlock(256, 64),
-            LinearBlock(64, 16),
-            LinearBlock(16, out_features)
+            nn.Linear(256, out_features)
         )
 
     def forward(self, x):
