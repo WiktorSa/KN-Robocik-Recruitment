@@ -23,10 +23,10 @@ def perform_flip_augmentation(gate_images: List[GateImage]) -> List[GateImage]:
 
 def perform_crop_augmentation(gate_images: List[GateImage]) -> List[GateImage]:
     """
-    Perform center crop augmentation on some of the images
+    Perform crop augmentation on some of the images
 
-    :param gate_images: gate images on which we want to perform center crop augmentation
-    :return: list of center cropped GateImage objects
+    :param gate_images: gate images on which we want to perform crop augmentation
+    :return: list of cropped GateImage objects
     """
 
     CHANCE_FOR_CROP_AUGMENTATION = 0.8

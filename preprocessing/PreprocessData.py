@@ -18,7 +18,7 @@ def preprocess_data(directory: str, train_size: float, val_size: float, use_augm
     1. Loading data from a given directory
     2. Dividing data into training, validation and test set
     3. Using data augmentation techniques on training set if needed
-    4. Saving data in .npz format in a given directory
+    4. Saving data in the .npz format in a given directory
 
     :param directory: directory where images and data about gates are stored
     :param train_size: size of training data

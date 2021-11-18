@@ -4,7 +4,7 @@ from utils import train_and_save_model
 
 def create_parser():
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('-task', help='Train classification task or regression task',
+    parser.add_argument('-model', help='Train classification model or regression model',
                         choices=['classification', 'regression'], type=str, required=True)
     parser.add_argument('-dir', default='preprocessed_data', help='Directory with preprocessed data', type=str,
                         required=False)
@@ -20,4 +20,4 @@ def create_parser():
 if __name__ == '__main__':
     data_parser = create_parser()
     args = data_parser.parse_args()
-    train_and_save_model(args.task == 'classification', args.dir, args.bs, args.lr, args.ep, args.save_dir, args.seed)
+    train_and_save_model(args.model == 'classification', args.dir, args.bs, args.lr, args.ep, args.save_dir, args.seed)

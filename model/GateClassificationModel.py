@@ -6,14 +6,14 @@ from model.Blocks import ConvolutionBlock, LinearBlock
 class GateClassificationModel(nn.Module):
     def __init__(self, in_channels: int, out_features: int):
         """
-        Create a model based on convolutions which will predict the location of the gate (code)
+        Create a CNN model which will predict the location of the gate (code)
 
         :param in_channels: number of color channels in images
         :param out_features: number of coordinates to predict
         """
 
         super(GateClassificationModel, self).__init__()
-        # Model needs to end with nn.Linear to avoid dropout
+        # Model needs to end with nn.Linear to avoid accidental dropout
         self.sequential = nn.Sequential(
             ConvolutionBlock(in_channels, 8),
             ConvolutionBlock(8, 16),

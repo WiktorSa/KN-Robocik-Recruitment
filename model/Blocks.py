@@ -12,7 +12,6 @@ class ConvolutionBlock(nn.Module):
         :param in_channels: number of channels in the input for convolution
         :param out_channels: number of channels produced by the convolution
         :param kernel_size: kernel size
-        :return: one convolution block
         """
 
         super(ConvolutionBlock, self).__init__()
@@ -36,7 +35,7 @@ class LinearBlock(nn.Module):
 
         :param in_features: number of inputs
         :param out_features: number of outputs
-        :param dropout: value of dropout in dropout layer.
+        :param dropout: value of dropout in the dropout layer.
         """
 
         super(LinearBlock, self).__init__()

@@ -12,12 +12,12 @@ def get_data_loader(images: np.ndarray, gate_locations: np.ndarray, gate_coordin
     Create dataloader for a given problem
 
     :param images: images containing gates
-    :param gate_locations: codes representing the location of the gate
-    :param gate_coordinates: the coordinates of the gate
+    :param gate_locations: codes representing the location of the gates
+    :param gate_coordinates: the coordinates of the gates
     :param batch_size: batch size
     :param is_classification_task: are we performing classification task.
     If True create DataLoader for classification task, else create DataLoader for regression task
-    :param shuffle: should data be reshufled at every epoch
+    :param shuffle: should data be reshufled on every epoch
     :return: DataLoader appriopriate for a given task
     """
 
@@ -38,9 +38,9 @@ def get_only_visible_gates(images, gate_locations, gate_coordinates) -> Tuple[np
     Get only visible gates (regression model can only learn on fully visible gates)
 
     :param images: images
-    :param gate_locations: codes representing the location of the gate
-    :param gate_coordinates: the coordinates of the gate
-    :return: images and gate coordinates of gates that are fully visible
+    :param gate_locations: codes representing the location of the gates
+    :param gate_coordinates: the coordinates of the gates
+    :return: images and coordinates of gates that are fully visible
     """
 
     images_fully_visible = []

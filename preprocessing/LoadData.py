@@ -7,10 +7,10 @@ from preprocessing.GateImage import GateImage
 
 def load_data(directory: str) -> List[GateImage]:
     """
-    Read images and data about gates from a given directory
+    Read images and data from a given directory
 
     :param directory: the directory where files are located
-    :return: list containing all gate images and their info (GateImage class)
+    :return: list containing all gate images with data (GateImage class)
     """
 
     gate_images = []
@@ -27,8 +27,8 @@ def load_data(directory: str) -> List[GateImage]:
 
 def read_gate_info(file: str, image_width: int, image_height: int) -> List[int]:
     """
-    Read info about the gate from a given file. Then convert it using width and height of the appropriate image
-    so that the info about the gate corresponds to the image
+    Read info about the gate from a given file. Then convert it using width and height of the image so that the
+    info about the gate corresponds to the image
 
     :param file: the location of the file
     :param image_width: the width of the image

@@ -30,7 +30,7 @@ class EarlyStopping:
 
         :param val_loss: validation loss
         :param model: the model that is currently trained
-        :return: bool telling if the learning should be stopped
+        :return: value telling if the learning should be stopped
         """
 
         if val_loss < self.best_val_loss:

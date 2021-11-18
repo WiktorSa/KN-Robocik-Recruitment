@@ -11,7 +11,7 @@ class GateImage:
     def __init__(self, image: np.ndarray, image_width: int, image_height: int, center_x: int, center_y: int,
                  width: int, height: int):
         """
-        GateImage class is designed to speed up the process of data preprocessing.
+        Create GateImage class that is designed to speed up the process of data preprocessing and data augmentation
 
         :param image: image on which you can see the gate
         :param image_width: the width of the image
@@ -37,11 +37,11 @@ class GateImage:
         self.bottom_right_corner = (int(center_x + width / 2), int(center_y + height / 2))
         self.gate_location = self.__get_gate_location()
 
-    def __get_gate_location(self) -> int:
+    def __get_gate_location(self) -> GateEnum:
         """
-        Get gate location from it's coordinates as a code (from GateEnum)
+        Get gate location from it's coordinates as an enum (GateEnum)
 
-        :return: A code representing the gate location
+        :return: An enum representing the gate location
         """
 
         if self.bottom_right_corner[0] > self.image_width:
@@ -58,7 +58,7 @@ class GateImage:
     # This function is necessary. Otherwise the input for our model will be too large
     def reshape(self, image_width, image_height) -> None:
         """
-        Reshape image and change all data so that it matches to the new image
+        Reshape image and change all data so that it matches to the reshaped image
 
         :param image_width: new width of a image
         :param image_height: new height of a image
@@ -94,7 +94,7 @@ class GateImage:
     def color_jitter_image(self, brightness: float = 0, contrast: float = 0, saturation: float = 0,
                            hue: float = 0) -> 'GateImage':
         """
-        Perform color jittering based on a given parameters and torchvision.transforms.ColorJitter function
+        Perform color jittering based on a given parameters
 
         :param brightness: how much to jitter brightness
         :param contrast how much to jitter contrast
@@ -115,13 +115,13 @@ class GateImage:
 
     def crop(self, x_left_offset: int, x_right_offset: int, y_down_offset: int, y_up_offset: int) -> 'GateImage':
         """
-        Crop the image
+        Crop the image and change all data so that they match to the new image
 
-        :param x_left_offset: x offset from the left side
-        :param x_right_offset: x offset from the right side
-        :param y_down_offset: y offset from the down
-        :param y_up_offset: y offset from the up
-        :return: GateImage object which is center cropped
+        :param x_left_offset: x-offset from the left side
+        :param x_right_offset: x-offset from the right side
+        :param y_down_offset: y-offset from the down
+        :param y_up_offset: y-offset from the up
+        :return: GateImage object where image is cropped compared to the original image
         """
 
         center_x, center_y = self.gate_center
@@ -147,10 +147,11 @@ class GateImage:
 
     def show_gate(self) -> None:
         """
-        Function used primarily for testing.
-        Using cv2 this function will show the following things:
+        Show gate location on the image as a way to test implemented reshape / data augmentation techniques
+
+        The function will show:
         1. The image with the gate
-        2. The center of the gate
+        2. The center of the gate (red circle)
         3. If possible it will show the location of the gate (red rectangle)
         4. It will print the location of the gate (see __get_gate_location())
         """
@@ -176,9 +177,9 @@ class GateImage:
 
     def get_image_data(self) -> Tuple[np.ndarray, int, List[int]]:
         """
-        Return data about image needed later for training the models
+        Get data needed for training the models
 
-        :return: tuple containing image, gate location and gate coordinates
+        :return: tuple containing image, gate location as a code and gate coordinates
         """
 
         gate_coordinates = [self.top_left_corner[0], self.top_left_corner[1], self.bottom_right_corner[0],

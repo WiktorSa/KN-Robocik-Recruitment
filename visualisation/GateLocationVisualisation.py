@@ -9,7 +9,7 @@ class GateLocationVisualisation:
     def __init__(self, image: np.ndarray, code: int, gate_coordinates: np.ndarray, predicted_code: int,
                  predicted_gate_coordinates: np.ndarray = None):
         """
-        This class allows for easy visualisation of model predictions
+        Create class that makes result visualisation easier
 
         :param image: image containing gate
         :param correct_code: correct code representing the location of the gate
@@ -23,7 +23,7 @@ class GateLocationVisualisation:
 
         self.image_height, self.image_width, _ = self.image.shape
 
-        # Correct coordinates
+        # Correct values
         self.gate_location = GateEnum(code)
         self.top_left_corner = (gate_coordinates[0], gate_coordinates[1])
         self.bottom_right_corner = (gate_coordinates[2], gate_coordinates[3])
@@ -66,7 +66,7 @@ class GateLocationVisualisation:
     # This function is needed because otherwise we will have very small images that are barely visible
     def reshape(self, image_width: int, image_height: int) -> None:
         """
-        Reshape image and change all parameters so that they fit the new image
+        Reshape image and change all data so that it matches to the reshaped image
 
         :param image_width: new width of a image
         :param image_height: new height of a image
@@ -79,7 +79,7 @@ class GateLocationVisualisation:
         self.image_width = image_width
         self.image_height = image_height
 
-        # Reshaping correct parameters
+        # Reshape correct parameters
         self.top_left_corner = (int(self.top_left_corner[0] * proportion_x),
                                 int(self.top_left_corner[1] * propotion_y))
         self.bottom_right_corner = (int(self.bottom_right_corner[0] * proportion_x),
@@ -96,12 +96,13 @@ class GateLocationVisualisation:
             self.predicted_gate_center = (int(self.predicted_gate_center[0] * proportion_x),
                                           int(self.predicted_gate_center[1] * propotion_y))
 
-    # TO DO
     def show_results(self) -> None:
         """
-        Show results which include:
-        1. On the left side the image with correct gate location and coordinates (if necessary)
-        2. On the right side the image with predicted gate location and coordinates (if necessary)
+        Visualise the performance of the model.
+
+        The function will show:
+        1. Correct gate location and coordinates (if possible) on the left side
+        2. Predicted gate location and coordinates (if possible) on the right side
         """
 
         font = cv2.FONT_HERSHEY_SIMPLEX

@@ -11,9 +11,9 @@ from utils.Train import train_regression, train_classification
 from utils.Test import test_regression, test_classification
 
 
-def set_seed(seed: int):
+def set_seed(seed: int) -> None:
     """
-    Set a seed for torch dependencies so that the output is always the same
+    Set a seed for torch dependencies so that the output is deterministic
 
     :param seed: seed
     """

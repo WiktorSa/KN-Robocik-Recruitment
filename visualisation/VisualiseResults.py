@@ -75,17 +75,17 @@ def get_results(images: np.ndarray, gate_locations: np.ndarray, gate_coordinates
     Predict the location of the gate using trained models
 
     :param images: images containing gates (in the format color_channels x height x width)
-    :param gate_locations: codes representing the location of the gate
-    :param gate_coordinates: the coordinates of the gate
+    :param gate_locations: codes representing the location of the gates
+    :param gate_coordinates: the coordinates of the gates
     :param classification_model: model that will predict the gate location (code)
-    :param regression_model: model that will predict gate coordinates
+    :param regression_model: model that will predict the gate location (coordinates)
     :return: numpy array containing predicted results in the form of GateLocationVisualisation class
     """
 
     results = np.empty(shape=len(images), dtype=object)
     # Note - GateLocationVisualisation and models take differently shaped images as an input!
     for i in range(len(images)):
-        # We need to add extra dimension to avoid error caused by not having batch_size dimension
+        # Add extra dimension to avoid error caused by not having batch_size dimension
         model_input = torch.tensor(images[i], dtype=torch.float)
         model_input = torch.unsqueeze(model_input, 0)
 
@@ -117,7 +117,7 @@ def reshape_results(results: np.ndarray, width: int, height: int) -> np.ndarray:
     """
     Reshape results so that they could be visible to the user
 
-    :param results: array containing all results
+    :param results: array containing all results (GateLocationVisualisation class)
     :param width: the width of the reshaped result
     :param height: the height of the reshaped result
     :return: reshaped results
