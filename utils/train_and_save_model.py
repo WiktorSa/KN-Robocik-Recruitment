@@ -60,11 +60,11 @@ def train_and_save_model(is_classification_task: bool, directory: str, batch_siz
                                       test_data['gate_coordinates'], batch_size, is_classification_task, False)
 
     if is_classification_task:
-        model = GateClassificationModel(in_channels, out_features_classification)
+        model = GateClassificationModel(in_channels, out_features_classification).to(DEVICE)
         criterion = nn.CrossEntropyLoss()
 
     else:
-        model = GateRegressionModel(in_channels, out_features_regression)
+        model = GateRegressionModel(in_channels, out_features_regression).to(DEVICE)
         criterion = nn.MSELoss()
 
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
