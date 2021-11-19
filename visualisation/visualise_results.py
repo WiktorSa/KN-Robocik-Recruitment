@@ -3,8 +3,8 @@ import numpy as np
 import torch
 from os.path import join
 from model import GateClassificationModel, GateRegressionModel
-from utils.GateEnum import GateEnum
-from visualisation.GateLocationVisualisation import GateLocationVisualisation
+from utils.gate_enum import GateEnum
+from visualisation.gate_location_visualisation import GateLocationVisualisation
 
 
 def visualise_results(directory_data: str, directory_models: str, width: int, height: int, seed: int = None) -> None:

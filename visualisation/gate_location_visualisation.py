@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 import copy
 from typing import Tuple
-from utils.GateEnum import GateEnum
+from utils.gate_enum import GateEnum
 
 
 class GateLocationVisualisation:

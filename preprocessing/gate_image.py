@@ -4,7 +4,7 @@ import cv2
 from PIL import Image
 from torchvision.transforms import ColorJitter
 from typing import Tuple, List
-from utils.GateEnum import GateEnum
+from utils.gate_enum import GateEnum
 
 
 class GateImage:

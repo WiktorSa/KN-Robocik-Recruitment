@@ -5,10 +5,10 @@ from os import mkdir
 from os.path import join, isdir
 from dataloader import get_data_loader
 from model import GateClassificationModel, GateRegressionModel
-from utils.GateEnum import GateEnum
-from utils.EarlyStopping import EarlyStopping
-from utils.Train import train_regression, train_classification
-from utils.Test import test_regression, test_classification
+from utils.gate_enum import GateEnum
+from utils.early_stopping import EarlyStopping
+from utils.train import train_regression, train_classification
+from utils.test import test_regression, test_classification
 
 
 def set_seed(seed: int) -> None:

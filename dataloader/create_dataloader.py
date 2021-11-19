@@ -1,9 +1,9 @@
 import numpy as np
 from torch.utils.data import DataLoader
 from typing import Tuple
-from utils.GateEnum import GateEnum
-from dataloader.GateClassificationDataset import GateClassificationDataset
-from dataloader.GateRegressionDataset import GateRegressionDataset
+from utils.gate_enum import GateEnum
+from dataloader.gate_classification_dataset import GateClassificationDataset
+from dataloader.gate_regression_dataset import GateRegressionDataset
 
 
 def get_data_loader(images: np.ndarray, gate_locations: np.ndarray, gate_coordinates: np.ndarray, batch_size: int,

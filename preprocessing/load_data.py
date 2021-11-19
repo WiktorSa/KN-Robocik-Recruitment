@@ -2,7 +2,7 @@ import cv2
 from os.path import join
 import glob
 from typing import List
-from preprocessing.GateImage import GateImage
+from preprocessing.gate_image import GateImage
 
 
 def load_data(directory: str) -> List[GateImage]:

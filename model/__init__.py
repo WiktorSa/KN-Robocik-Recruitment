@@ -1,2 +1,2 @@
-from model.GateRegressionModel import GateRegressionModel
-from model.GateClassificationModel import GateClassificationModel
+from model.gate_regression_model import GateRegressionModel
+from model.gate_classification_model import GateClassificationModel

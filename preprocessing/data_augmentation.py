@@ -1,6 +1,6 @@
 import random
 from typing import List
-from preprocessing.GateImage import GateImage
+from preprocessing.gate_image import GateImage
 
 
 def perform_flip_augmentation(gate_images: List[GateImage], chance_flip: float = 1.0) -> List[GateImage]:

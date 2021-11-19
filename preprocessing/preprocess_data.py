@@ -4,9 +4,9 @@ import itertools
 from os import mkdir
 from os.path import join, isdir
 from typing import Tuple, List
-from preprocessing.LoadData import load_data
-from preprocessing.GateImage import GateImage
-from preprocessing.DataAugmentation import perform_flip_augmentation, perform_crop_augmentation, \
+from preprocessing.load_data import load_data
+from preprocessing.gate_image import GateImage
+from preprocessing.data_augmentation import perform_flip_augmentation, perform_crop_augmentation, \
     perform_color_jitter_augmentation
 
 

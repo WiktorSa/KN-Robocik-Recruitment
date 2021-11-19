@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from model.Blocks import ConvolutionBlock, LinearBlock
+from model.blocks import ConvolutionBlock, LinearBlock
 
 
 class GateRegressionModel(nn.Module):
